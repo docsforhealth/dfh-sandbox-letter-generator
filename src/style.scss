@@ -1,5 +1,18 @@
+
+// Third party libraries
+// ---------------------
+
 @import '~normalize.css/normalize';
 @import '~scut/dist/scut';
+
+// Base styles
+// -----------
+
+$path-base-styles: '~src/scss/base';
+@import 'src/scss/base/import';
+
+// Project-specific styles
+// -----------------------
 
 @import '~src/scss/vars';
 @import '~src/scss/overrides';

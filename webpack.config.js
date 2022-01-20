@@ -1,13 +1,25 @@
 // Dependencies
+// ------------
+
 const fs = require('fs');
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+// Data
+// ----
+
+const DATA_TYPES = require('./data/field-types');
+const DATA_SECTIONS = require('./data/sections');
+
+// Webpack config
+// --------------
+
 // Customize behavior based on mode in Webpack 5, `process.env.NODE_ENV` is for Webpack <= 3
 // Must use `--mode <env>` NOT `--mode=<env>`
 // see https://stackoverflow.com/a/54482904
-const MODE_DEV = process.argv[process.argv.indexOf('--mode') + 1] !== 'production';
+const MODE_DEV =
+  process.argv[process.argv.indexOf('--mode') + 1] !== 'production';
 
 // Automatically build the first
 // see https://stackoverflow.com/a/67928998
@@ -23,6 +35,10 @@ const htmlPagePlugins = fs
       new HTMLWebpackPlugin({
         template: path.resolve(DIRECTORY_EJS, ejsName),
         filename: `${ejsName.slice(0, -4)}.html`,
+        data: {
+          types: DATA_TYPES,
+          sections: DATA_SECTIONS,
+        },
       }),
   );
 
@@ -41,7 +57,7 @@ module.exports = {
   // uses webpack-dev-server v4, see https://webpack.js.org/configuration/dev-server
   devServer: {
     // opens new browser window after start
-    open: true,
+    open: false,
     // for simplicity, use live reload instead of hot module replacement
     hot: false,
     liveReload: true,
