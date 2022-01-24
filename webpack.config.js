@@ -11,6 +11,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const DATA_TYPES = require('./data/field-types');
 const DATA_SECTIONS = require('./data/sections');
+const DATA_LETTERS = require('./data/letters');
 
 // Webpack config
 // --------------
@@ -35,9 +36,11 @@ const htmlPagePlugins = fs
       new HTMLWebpackPlugin({
         template: path.resolve(DIRECTORY_EJS, ejsName),
         filename: `${ejsName.slice(0, -4)}.html`,
-        data: {
+        // accessible EJS files as `htmlWebpackPlugin.options.customData`
+        customData: {
           types: DATA_TYPES,
           sections: DATA_SECTIONS,
+          letters: DATA_LETTERS,
         },
       }),
   );

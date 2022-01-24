@@ -7,13 +7,13 @@ const PREVENTING_INCARCERATION = [
       {
         key: 'patient-name',
         type: Types.TYPE_TEXT_SHORT,
-        title: 'Patient name',
+        label: 'Patient name',
         placeholder: 'Example: John Doe',
       },
       {
         key: 'pronouns',
         type: Types.TYPE_OPTIONS_UNORDERED,
-        title: 'Pronouns',
+        label: 'Pronouns',
         options: [
           {
             label: 'He/Him',
@@ -44,21 +44,21 @@ const PREVENTING_INCARCERATION = [
         // Only Types.TYPE_TEXT_* and Types.TYPE_OPTIONS_* supported
         other: [
           {
-            key: 'subject',
+            key: 'pronoun__subject',
             type: Types.TYPE_TEXT_SHORT,
-            title: 'Subject pronoun',
+            label: 'Subject pronoun',
             placeholder: 'Example: she',
           },
           {
-            key: 'object',
+            key: 'pronoun__object',
             type: Types.TYPE_TEXT_SHORT,
-            title: 'Object pronoun',
+            label: 'Object pronoun',
             placeholder: 'Example: her',
           },
           {
-            key: 'possessive',
+            key: 'pronoun__possessive',
             type: Types.TYPE_TEXT_SHORT,
-            title: 'Possessive pronoun',
+            label: 'Possessive pronoun',
             placeholder: 'Example: hers',
           },
         ],
@@ -66,7 +66,7 @@ const PREVENTING_INCARCERATION = [
       {
         key: 'dob',
         type: Types.TYPE_TEXT_DATE,
-        title: 'Date of birth',
+        label: 'Date of birth',
         placeholder: 'MM/DD/YYYY',
         format: 'MM/DD/YYYY',
       },
@@ -74,10 +74,11 @@ const PREVENTING_INCARCERATION = [
         key: 'conditions-aggravated-by-incarceration',
         type: Types.TYPE_TEXT_LONG,
         rows: 2,
-        title:
+        label:
           'Conditions that you believe would be aggravated by incarceration',
         placeholder: 'Your response here...',
         contextBefore: true,
+        __sandboxContextBefore: 'Specifically, <span>Patient name</span> has the following conditions that are very likely to be exacerbated in a correctional setting:',
         help:
           'Please list the medical and mental health conditions that you believe incarceration would exacerbate. It is reasonable to list the patient’s entire medical history here.',
       },
@@ -85,9 +86,10 @@ const PREVENTING_INCARCERATION = [
         key: 'strengths-accomplishments',
         type: Types.TYPE_TEXT_LONG,
         rows: 2,
-        title: 'Strengths and recent accomplishments',
+        label: 'Strengths and recent accomplishments',
         placeholder: 'Your response here...',
         contextBefore: true,
+        __sandboxContextBefore: 'Despite multiple social and other challenges, <span>Patient name</span> has recently done a remarkable job of',
         help:
           'Please describe any improvements the patient has made to their overall health or life. This is your opportunity to describe your patient’s strengths.',
         examples: [
@@ -104,14 +106,14 @@ const PREVENTING_INCARCERATION = [
         key: 'name-credentials',
         type: Types.TYPE_TEXT_SHORT,
         save: true,
-        title: 'Your name and credentials',
+        label: 'Your name and credentials',
         placeholder: 'Example: Iam A Doctor, MD',
       },
       {
         key: 'clinic-name',
         type: Types.TYPE_TEXT_SHORT,
         save: true,
-        title: 'Clinic name',
+        label: 'Clinic name',
         placeholder: 'Example: Main St Clinic',
       },
       {
@@ -119,7 +121,7 @@ const PREVENTING_INCARCERATION = [
         type: Types.TYPE_TEXT_LONG,
         rows: 2,
         save: true,
-        title: 'Clinic address',
+        label: 'Clinic address',
         placeholder: 'Example: 1234 Main St, Providence, RI, 02903',
       },
       {
@@ -127,7 +129,7 @@ const PREVENTING_INCARCERATION = [
         type: Types.TYPE_TEXT_PHONE_NUM,
         optional: true,
         save: true,
-        title: 'Clinic phone number',
+        label: 'Clinic phone number',
         placeholder: '(###) ### - ####',
         format: '(###) ### - ####',
       },
@@ -136,7 +138,7 @@ const PREVENTING_INCARCERATION = [
         type: Types.TYPE_IMAGE_UPLOAD,
         optional: true,
         save: true,
-        title: 'Letterhead',
+        label: 'Letterhead',
         upload: 'Upload your letterhead',
       },
       {
@@ -144,7 +146,7 @@ const PREVENTING_INCARCERATION = [
         type: Types.TYPE_IMAGE_DRAW,
         optional: true,
         save: true,
-        title: 'Your signature',
+        label: 'Your signature',
         draw: 'Sign here...',
         upload: 'Upload your signature',
       },

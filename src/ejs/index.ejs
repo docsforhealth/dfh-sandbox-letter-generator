@@ -6,14 +6,124 @@
         <meta name="description" content="Fill out fields to generate a letter">
     </head>
     <body>
-        <p>TODO htmlWebpackPlugin: <%= JSON.stringify(htmlWebpackPlugin) %></p>
-
         <div class="generator">
             <div class="generator__header">
 
             </div>
             <div class="generator__body">
-
+                <div>
+                    <% const types = htmlWebpackPlugin.options.customData.types; %>
+                    <% htmlWebpackPlugin.options.customData.sections.PREVENTING_INCARCERATION.forEach((section) => { %>
+                        <h2><%= section.name %></h2>
+                        <% section.fields.forEach((field) => { %>
+                            <% if (field.type == types.TYPE_OPTIONS_UNORDERED) { -%>
+                                <fieldset>
+                                    <legend><%= field.label %></legend>
+                                    <% field.options.forEach((option, index) => { %>
+                                        <input type="radio"
+                                            id="<%= `${field.key}--${index}` %>"
+                                            name="<%= field.key %>"
+                                            value="<%= JSON.stringify(option.value) %>"
+                                            <%- field.optional ? '' : 'required' %>>
+                                        <label for="<%= `${field.key}--${index}` %>">
+                                            <%= option.label %>
+                                        </label>
+                                        <br>
+                                    <% }); %>
+                                    <% if (!!field.other) { -%>
+                                        <input type="radio"
+                                            id="<%= `${field.key}--other` %>"
+                                            name="<%= field.key %>"
+                                            value=""
+                                            <%- field.optional ? '' : 'required' %>>
+                                        <label for="<%= `${field.key}--other` %>">
+                                            Other
+                                        </label>
+                                        <br>
+                                    <% } -%>
+                                    <% field.other?.forEach((otherField) => { %>
+                                        <label for="<%= otherField.key %>">
+                                            <%= otherField.label %>
+                                        </label>
+                                        <input id="<%= otherField.key %>"
+                                            name="<%= otherField.key %>"
+                                            type="text"
+                                            placeholder="<%= otherField.placeholder %>">
+                                    <% }); %>
+                                </fieldset>
+                            <% } else if (field.type == types.TYPE_IMAGE_UPLOAD || field.type == types.TYPE_IMAGE_DRAW) { -%>
+                                <!-- Just a emulate the label which is used for the custom file upload control -->
+                                <div>
+                                    <% if (field.optional) { -%>
+                                        <span>Optional</span>
+                                    <% } -%>
+                                    <%= field.label %>
+                                </div>
+                                <!-- see https://css-tricks.com/snippets/css/custom-file-input-styling-webkitblink/ -->
+                                <label>
+                                    <input id="<%= field.key %>"
+                                        name="<%= field.key %>"
+                                        type="file"
+                                        accept="image/*"
+                                        aria-label="<%= field.label %>"
+                                        <%- field.optional ? '' : 'required' %>>
+                                    <span><%= field.upload %></span>
+                                </label>
+                                <% if (field.type == types.TYPE_IMAGE_DRAW) { -%>
+                                    <button type="button">
+                                        <%= field.draw %>
+                                    </button>
+                                <% } -%>
+                            <% } else { -%>
+                                <div class="<%= field.save ? 'field--saved' : ''%>">
+                                    <label for="<%= field.key %>">
+                                        <% if (field.optional) { -%>
+                                            <span>Optional</span>
+                                        <% } -%>
+                                        <%= field.label %>
+                                    </label>
+                                    <% if (field.type == types.TYPE_TEXT_SHORT) { -%>
+                                        <input id="<%= field.key %>"
+                                            name="<%= field.key %>"
+                                            type="text"
+                                            placeholder="<%= field.placeholder %>"
+                                            <%- field.optional ? '' : 'required' %>>
+                                    <% } else if (field.type == types.TYPE_TEXT_LONG) { -%>
+                                        <div>
+                                            <%- field.__sandboxContextBefore %>
+                                        </div>
+                                        <textarea name="<%= field.key %>"
+                                            id="<%= field.key %>"
+                                            rows="<%= field.rows %>"
+                                            placeholder="<%= field.placeholder %>"
+                                            <%- field.optional ? '' : 'required' %>></textarea>
+                                        <div>
+                                            <p><%= field.help %></p>
+                                            <ul>
+                                                <% field.examples?.forEach((example) => { %>
+                                                    <li><%= example %></li>
+                                                <% }); %>
+                                            </ul>
+                                        </div>
+                                    <% } else if (field.type == types.TYPE_TEXT_DATE) { -%>
+                                        <input id="<%= field.key %>"
+                                            name="<%= field.key %>"
+                                            type="date"
+                                            placeholder="<%= field.placeholder %>"
+                                            <%- field.optional ? '' : 'required' %>>
+                                    <% } else if (field.type == types.TYPE_TEXT_PHONE_NUM) { -%>
+                                        <input id="<%= field.key %>"
+                                            name="<%= field.key %>"
+                                            type="tel"
+                                            placeholder="<%= field.placeholder %>"
+                                            <%- field.optional ? '' : 'required' %>>
+                                    <% } -%>
+                                </div>
+                            <% } -%>
+                        <% }); %>
+                    <% }); %>
+                </div>
+                <div></div>
             </div>
         </div>
     </body>
